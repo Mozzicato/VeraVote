@@ -1,0 +1,109 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+  VeraVote tokens. RGB triplets so Tailwind can apply alpha.
+  paper   — cool carbon-copy paper, not cream
+  ink     — ballpoint blue-black
+  violet  — indelible election ink; the only accent
+  agree / differ / wait — evidence conditions, always paired with a glyph and words
+*/
+:root {
+  --paper: 243 245 243;
+  --sheet: 252 253 252;
+  --rule: 201 207 214;
+  --ink: 22 34 63;
+  --ink-soft: 84 95 120;
+  --violet: 74 40 120;
+  --violet-strong: 58 28 98;
+  --on-violet: 255 255 255;
+  --agree: 30 107 71;
+  --agree-tint: 226 241 233;
+  --differ: 179 38 30;
+  --differ-tint: 250 231 228;
+  --wait: 138 101 0;
+  --wait-tint: 250 240 214;
+  --done: 74 40 120;
+  --done-tint: 237 231 246;
+  --hatch: 228 196 92;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: 15 22 40;
+    --sheet: 22 31 54;
+    --rule: 52 64 92;
+    --ink: 230 233 240;
+    --ink-soft: 160 170 192;
+    --violet: 186 160 240;
+    --violet-strong: 206 186 248;
+    --on-violet: 20 14 36;
+    --agree: 110 205 155;
+    --agree-tint: 20 52 42;
+    --differ: 255 128 112;
+    --differ-tint: 66 28 30;
+    --wait: 232 190 90;
+    --wait-tint: 58 46 16;
+    --done: 186 160 240;
+    --done-tint: 40 32 66;
+    --hatch: 120 96 30;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --paper: 15 22 40;
+  --sheet: 22 31 54;
+  --rule: 52 64 92;
+  --ink: 230 233 240;
+  --ink-soft: 160 170 192;
+  --violet: 186 160 240;
+  --violet-strong: 206 186 248;
+  --on-violet: 20 14 36;
+  --agree: 110 205 155;
+  --agree-tint: 20 52 42;
+  --differ: 255 128 112;
+  --differ-tint: 66 28 30;
+  --wait: 232 190 90;
+  --wait-tint: 58 46 16;
+  --done: 186 160 240;
+  --done-tint: 40 32 66;
+  --hatch: 120 96 30;
+  color-scheme: dark;
+}
+
+body {
+  background: rgb(var(--paper));
+  color: rgb(var(--ink));
+  font-feature-settings: "tnum" 1;
+}
+
+:focus-visible {
+  outline: 3px solid rgb(var(--violet));
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* The demo band: a hatched strip, so "simulated" reads as a condition of the page, not a notice. */
+.sim-band {
+  background: repeating-linear-gradient(-45deg, rgb(var(--hatch)) 0 10px, rgb(var(--hatch) / 0.75) 10px 20px);
+}
+
+/* Reviewer's ink circle around a differing figure. Drawn once; already drawn under reduced motion. */
+.ink-circle path {
+  stroke-dasharray: 260;
+  stroke-dashoffset: 260;
+  animation: ink-draw 700ms cubic-bezier(0.6, 0, 0.3, 1) forwards;
+  animation-delay: calc(300ms + var(--i, 0) * 160ms);
+}
+@keyframes ink-draw {
+  to { stroke-dashoffset: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ink-circle path { animation: none; stroke-dashoffset: 0; }
+}
+
+/* Headlines never strand a single word on the last line. */
+h1, h2, h3 { text-wrap: balance; }

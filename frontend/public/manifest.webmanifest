@@ -1,0 +1,10 @@
+{
+  "name": "VeraVote",
+  "short_name": "VeraVote",
+  "description": "Independent election evidence: find your polling unit, inspect evidence, submit leads.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f6f5f0",
+  "theme_color": "#006948",
+  "icons": [{ "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }]
+}
